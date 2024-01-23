@@ -7,6 +7,8 @@ _Messie [ˈmɛsiː]: german word for a compulsive hoarder._
 ## Overview
 Image Messie is a Python tool designed to help organize and manage unsorted image files. It simplifies the process of copying image files from a source folder to a destination folder, making it easier to keep your images well-organized.
 
+![Before and After](docs/image-messie-before-after.jpg)
+
 ## Features
 - Copy image files from any source folder to a specified destination folder.
 - Group images by year, month and by the camera model used to take the picture.
