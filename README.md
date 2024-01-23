@@ -90,5 +90,5 @@ SOFTWARE.
 
 
 ## Contact
-For any questions or feedback, please contact [Your Contact Information].
+For any questions or feedback, please contact me.
 
