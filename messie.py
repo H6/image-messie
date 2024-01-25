@@ -24,6 +24,7 @@ def parse_arguments():
         parser.add_argument("--path", help="The path to the directory to be searched.", type=str, required=True)
         parser.add_argument("--destination", help="The path to the destination directory where the ordered images are stored.", type=str, default=".")
         parser.add_argument("--dry-run", action=argparse.BooleanOptionalAction, help="Dry run, do not copy files.", default=False)
+        parser.add_argument("--verbose", action=argparse.BooleanOptionalAction, help="Verbose output.", default=False)
         args = parser.parse_args()
         return args
     except:
@@ -103,6 +104,7 @@ if __name__ ==  "__main__":
     path = parsed_args.path
     dry_run = parsed_args.dry_run
     destination = parsed_args.destination
+    verbose = parsed_args.verbose
 
     console.print(f'Reading files from {path}')
     if dry_run:
@@ -121,7 +123,8 @@ if __name__ ==  "__main__":
         file_size_in_bytes = os.path.getsize(f)
         total_size_bytes += file_size_in_bytes
         file_name = os.path.basename(f)
-        console.print(f'Processing {file_name} (size: {file_size_in_bytes} bytes)')
+        if verbose:
+            console.print(f'Processing {file_name} (size: {file_size_in_bytes} bytes)')
         target_path = os.path.join(destination, 'UNKNOWN')
 
         try:
@@ -138,13 +141,14 @@ if __name__ ==  "__main__":
                 total_images += 1
                 target_path = os.path.join(destination, year, f'{month}_{month_name}', model)
         except:
-            console.print(f'Error opening {file_name}', style="bold red")
+            console.print(f'Error opening {file_name}. Seems to be no image file.', style="bold red")
             total_non_images += 1
 
         if dry_run:
             console.print(f'Copying {file_name} to {target_path}')
         else:
-            console.print(f'Creating folder {target_path} if it does not exist')
+            if verbose:
+                console.print(f'Creating folder {target_path} if it does not exist')
 
             # remove null bytes from target path
             target_path = target_path.replace('\x00', '')
