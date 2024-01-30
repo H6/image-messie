@@ -10,6 +10,7 @@ import shutil
 import datetime
 from rich.table import Table
 from rich.panel import Panel
+import pathlib
 
 console = Console()
 
@@ -123,6 +124,9 @@ if __name__ ==  "__main__":
         file_size_in_bytes = os.path.getsize(f)
         total_size_bytes += file_size_in_bytes
         file_name = os.path.basename(f)
+        file_suffix = pathlib.Path(f).suffix.lower()
+        file_stem = pathlib.Path(f).stem.lower()
+        
         if verbose:
             console.print(f'Processing {file_name} (size: {file_size_in_bytes} bytes)')
         target_path = os.path.join(destination, 'UNKNOWN')
@@ -154,9 +158,14 @@ if __name__ ==  "__main__":
             target_path = target_path.replace('\x00', '')
 
             Path(target_path).mkdir(parents=True, exist_ok=True)
-            # pass
-            console.print(f'Copying {file_name} to ...{target_path}...', style="green bold")
-            shutil.copy(f, f'{target_path}/{file_name}')
+
+            # check if file already exists in target path. if yes the current date is added
+            destination_filename = file_name
+            if os.path.exists(os.path.join(target_path, destination_filename)):
+                destination_filename = f'{file_stem}_{datetime.datetime.now().strftime("%Y%m%d%H%M%S")}{file_suffix}'.upper()
+
+            console.print(f'📁 Copying {file_name} to "{target_path}/{destination_filename}"', style="green bold")
+            shutil.copy(f, f'{target_path}/{destination_filename}')
 
     total_size_in_megebytes = round(total_size_bytes / (1024 * 1024), 2)
 

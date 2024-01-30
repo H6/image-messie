@@ -15,10 +15,14 @@ Image Messie is a Python tool designed to help organize and manage unsorted imag
 - Simple and easy-to-use command-line interface.
 
 ## Grouping
-Image Messie automatically groups images in the destination folder based on the date they were taken and the camera model. This feature organizes the images into subfolders following a Year/Month/Day structure and categorizes them by the camera model, making it easier to find and manage photos from specific dates or taken with specific cameras.
+Image Messie automatically groups images in the destination folder based on the date they were taken and the camera model. This feature organizes the images into subfolders following a Year/Month structure and categorizes them by the camera model, making it easier to find and manage photos from specific dates or taken with specific cameras.
 
 For example, an image taken on March 5, 2023, with a Canon EOS camera will be placed in:
 `DESTINATION_FOLDER/2023/03_March/CANON_EOS/`
+
+### Handling duplicates
+
+If the destination file already exists the file will not be overriden but the current date will be added as a suffix to the file.
 
 ## Requirements
 - Python 3.x
@@ -59,7 +63,6 @@ Replace `SOURCE_FOLDER` with the path to the folder containing the unsorted imag
 ```
 python messie.py --path /path/to/unsorted/images --destination /path/to/sorted/images
 ```
-
 
 ## Contributing
 Contributions to Image Messie are welcome! Please feel free to submit pull requests or open issues to suggest improvements or report bugs.
