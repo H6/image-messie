@@ -1,3 +1,7 @@
+[There is a complete rewritten application available at](https://github.com/H6/image-messie-rust).
+
+--------------
+
 # Image Messie
 
 ![Image Messie](image-messie.png)
